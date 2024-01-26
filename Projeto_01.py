@@ -10,7 +10,12 @@ def menu():
     print("4 - Gerenciamento de downloads")
     print("5 - Sair")
     print('-' * 30)
-    opcao=int(input("Opção: "))
+    try:
+        opcao=int(input("Opção: "))
+    except ValueError:
+        print('-' * 30)
+        print('Opção inválida.')
+        print('-' * 30)
     print('-' * 30)
     return opcao
 
@@ -78,7 +83,13 @@ def gerenciar_download():
     if len(listadownloads)>0:
         print('1 - Excluir\n2 - Editar')
         print('-'*30)
-        gerenciador = int(input('Opção: '))
+        try:
+            gerenciador = int(input('Opção: '))
+        except ValueError:
+            print('-' * 30)
+            print('Opção inválida.')
+            print('-' * 30)
+            return
 
         if gerenciador == 1:
             id_excluir = input('Digite o nome ou ID do arquivo a ser excluído: ')
@@ -134,7 +145,6 @@ def gerenciar_download():
 
                 if not found:
                     print('Download não encontrado!')
-
     else:
         print('Nenhum download cadastrado!')
         input('Pressione qualquer tecla para continuar...\n')
@@ -163,7 +173,7 @@ def main():
 
 main()
 
-
+# melhor de todos graças a Deus
 
 
 
