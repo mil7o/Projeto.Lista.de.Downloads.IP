@@ -1,4 +1,5 @@
 from datetime import datetime
+#eae deu certo?
 listadownloads={}
 
 def menu():
@@ -26,9 +27,9 @@ def download():
             id=int(input('Insira outro valor: '))
     nome=str(input('Nome: '))
     for arquivo in listadownloads.values():
-        while arquivo.get('nome') == id:
+        while arquivo.get('nome') == nome:
             print('Nome já existente!')
-            id = int(input('Renomeie o download: '))
+            nome = str(input('Renomeie o download: '))
     categoria=input('Categoria: ')
     categoria=categoria.capitalize()
     data=datetime.now()
