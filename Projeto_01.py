@@ -199,7 +199,6 @@ def main():
 
 main()
 
-# melhor de todos graças a Deus
 
 
 
