@@ -1,7 +1,5 @@
 from datetime import datetime
 listadownloads={}
-ids=[]
-nomes=[]
 
 def menu():
     print("1 - Cadastro de downloads")
@@ -16,19 +14,21 @@ def menu():
 
 def download():
     try:
-        id=int(input('ID: '))
+        id = int(input('ID: '))
     except ValueError:
         print('-' * 30)
         print('Insira um ID válido.')
         print('-' * 30)
         return
-    if id in ids:
-        print('ID já existente!')
-        id+=1
-        print(f'Valor mudado para{id}.')
-    nome=input('Nome: ')
-    if nome in nomes:
-        nome=nome+f'({nomes.count(nome)})'
+    for arquivo in listadownloads.values():
+        while arquivo.get('id') == id:
+            print('ID já existente!')
+            id=int(input('Insira outro valor: '))
+    nome=str(input('Nome: '))
+    for arquivo in listadownloads.values():
+        while arquivo.get('nome') == id:
+            print('Nome já existente!')
+            id = int(input('Renomeie o download: '))
     categoria=input('Categoria: ')
     categoria=categoria.capitalize()
     data=datetime.now()
@@ -36,15 +36,13 @@ def download():
     tamanho=input('Tamanho: ')
     tamanho=tamanho.upper()
     arquivo={'id':id, 'nome':nome, 'categoria':categoria, 'data':data_formatada, 'tamanho':tamanho}
-    ids.append(id)
-    nomes.append(nome)
     listadownloads[id,nome,]=arquivo
     print('-' * 30)
     print('Arquivo cadastrado com sucesso!')
     print('-' * 30)
    
 def listar_download():
-    print('Downloads')
+    print(f'{'Downloads':^30}')
     for arquivo in listadownloads.values():
         print('')
         print(f"ID: {arquivo.get('id')}")
@@ -108,9 +106,17 @@ def gerenciar_download():
                         opcao_editar=int(input('Opção: '))
                         if opcao_editar==1:
                             novoid=input('Digite o novo ID do download: ')
+                            for arquivo in listadownloads.values():
+                                while arquivo.get('id') == novoid:
+                                    print('ID já existente!')
+                                    novoid = int(input('Insira outro valor: '))
                             arquivo.update({'id':novoid})
                         elif opcao_editar==2:
                             novonome=input('Digite o novo nome do download: ')
+                            for arquivo in listadownloads.values():
+                                while arquivo.get('nome') == novonome:
+                                    print('Nome já existente!')
+                                    novonome = str(input('Renomeie o download: '))
                             arquivo.update({'nome':novonome})
                         elif opcao_editar==3:
                             novocategoria=input('Digite a nova categoria do download: ')
@@ -120,8 +126,16 @@ def gerenciar_download():
                             arquivo.update({'tamanho': novotamanho})
                         elif opcao_editar==5:
                             novoid=int(input('Digite o novo ID do download: '))
+                            for arquivo in listadownloads.values():
+                                while arquivo.get('id') == novoid:
+                                    print('ID já existente!')
+                                    novoid = int(input('Insira outro valor: '))
                             arquivo.update({'id':novoid})
                             novonome=input('Digite o novo nome do download: ')
+                            for arquivo in listadownloads.values():
+                                while arquivo.get('nome') == novonome:
+                                    print('Nome já existente!')
+                                    novonome = str(input('Renomeie o download: '))
                             arquivo.update({'nome':novonome})
                             novocategoria=input('Digite a nova categoria do download: ')
                             arquivo.update({'categoria': novocategoria})
@@ -144,6 +158,7 @@ def main():
 
     while True:
         opcao=menu()
+
         if opcao==1:
             download()
         elif opcao==2:
