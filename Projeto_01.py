@@ -1,5 +1,4 @@
 from datetime import datetime
-#eae deu certo?
 listadownloads={}
 
 def menu():
@@ -11,11 +10,22 @@ def menu():
     print('-' * 30)
     try:
         opcao=int(input("Opção: "))
+        valorinteiro=True
     except ValueError:
         print('-' * 30)
         print('Opção inválida.')
         print('-' * 30)
+        valorinteiro=False
     print('-' * 30)
+    while valorinteiro==False:
+        try:
+            opcao = int(input("Opção: "))
+            valorinteiro = True
+        except ValueError:
+            print('-' * 30)
+            print('Opção inválida.')
+            print('-' * 30)
+            valorinteiro = False
     return opcao
 
 def download():
