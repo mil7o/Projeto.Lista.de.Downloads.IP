@@ -29,17 +29,15 @@ def menu():
     return opcao
 
 def download():
-    try:
-        id = int(input('ID: '))
-    except ValueError:
-        print('-' * 30)
-        print('Insira um ID válido.')
-        print('-' * 30)
-        return
+    id = (input('ID: '))
+    while id.isdigit()==False:
+        print('-'*30)
+        print('O ID deve conter apenas números!')
+        id = input('Insira um ID válido: ')
     for arquivo in listadownloads.values():
-        while arquivo.get('id') == id:
+        while id == arquivo.get('id'):
             print('ID já existente!')
-            id=int(input('Insira outro valor: '))
+            id=(input('Insira outro valor: '))
     nome=str(input('Nome: '))
     for arquivo in listadownloads.values():
         while arquivo.get('nome') == nome:
@@ -102,11 +100,12 @@ def gerenciar_download():
 
         if gerenciador == 1:
             id_excluir = input('Digite o nome ou ID do arquivo a ser excluído: ')
-            if id_excluir in listadownloads:
-                del listadownloads[id_excluir]
-                print('Arquivo excluído com sucesso!')
-            else:
-                print('ID não encontrado.')
+            for arquivo in listadownloads.values():
+                if id_excluir in listadownloads:
+                    del listadownloads[id_excluir]
+                    print('Arquivo excluído com sucesso!')
+                else:
+                    print('ID não encontrado.')
 
         elif gerenciador == 2:
             id_editar = input('Digite o nome ou ID do arquivo a ser editado: ')
